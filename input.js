@@ -1,28 +1,28 @@
 export class inputMaster{
     constructor(){
         
-        this.key_up=false;
-        this.key_down=false;
-        this.key_left=false;
-        this.key_right=false;
-        this.key_e=false;
-        this.key_space=false;
+        this.key_up=0;
+        this.key_down=0;
+        this.key_left=0;
+        this.key_right=0;
+        this.key_e=0;
+        this.key_space=0;
         window.addEventListener('keydown', e=> {
-            if(e.key==='ArrowUp'||e.key==='w'||e.key==='W'){this.key_up=true};
-            if(e.key==='ArrowDown'||e.key==='s'||e.key==='S'){this.key_down=true};
-            if(e.key==='ArrowLeft'||e.key==='a'||e.key==='A'){this.key_left=true};
-            if(e.key==='ArrowRight'||e.key==='d'||e.key==='D'){this.key_right=true};
-            if(e.key==='e'||e.key==='E'){this.key_e=true};
-            if(e.key===' '){this.key_space=true};
+            if(e.key==='ArrowUp'||e.key==='w'||e.key==='W'){this.key_up=1};
+            if(e.key==='ArrowDown'||e.key==='s'||e.key==='S'){this.key_down=1};
+            if(e.key==='ArrowLeft'||e.key==='a'||e.key==='A'){this.key_left=1};
+            if(e.key==='ArrowRight'||e.key==='d'||e.key==='D'){this.key_right=1};
+            if(e.key==='e'||e.key==='E'){this.key_e=1};
+            if(e.key===' '){this.key_space=1};
 
         });
         window.addEventListener('keyup', e => {
-            if(e.key==='ArrowUp'||e.key==='w'||e.key==='W'){this.key_up=false};
-            if(e.key==='ArrowDown'||e.key==='s'||e.key==='S'){this.key_down=false};
-            if(e.key==='ArrowLeft'||e.key==='a'||e.key==='A'){this.key_left=false};
-            if(e.key==='ArrowRight'||e.key==='d'||e.key==='D'){this.key_right=false};
-            if(e.key==='e'||e.key==='E'){this.key_e=false};
-            if(e.key===' '){this.key_space=false};
+            if(e.key==='ArrowUp'||e.key==='w'||e.key==='W'){this.key_up=0};
+            if(e.key==='ArrowDown'||e.key==='s'||e.key==='S'){this.key_down=0};
+            if(e.key==='ArrowLeft'||e.key==='a'||e.key==='A'){this.key_left=0};
+            if(e.key==='ArrowRight'||e.key==='d'||e.key==='D'){this.key_right=0};   //note:issues arise when using multiple control modes at the same time
+            if(e.key==='e'||e.key==='E'){this.key_e=0};
+            if(e.key===' '){this.key_space=0};
 
         });
 

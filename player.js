@@ -8,19 +8,19 @@ export class Player {
         this.image =document.getElementById('player');
         this.speed=0;
         this.vspeed=0;
-        this.maxSpeed=10;
+        this.maxSpeed=5;
     }
     update(key_up, key_down, key_left, key_right,
         key_e, key_space
     ){
-        // this.x++;
+        // movement
         this.x+= this.speed;
         this.y+= this.vspeed;
 
-        if(key_right) {this.speed=this.maxSpeed;}
-        if(key_left) {this.speed=-this.maxSpeed;}
-        if(key_down) {this.vspeed=this.maxSpeed;}
-        if(key_up) {this.vspeed=-this.maxSpeed;}
+        this.speed=(this.maxSpeed*key_right)-(this.maxSpeed*key_left);
+        
+        this.vspeed=(this.maxSpeed*key_down)-(this.maxSpeed*key_up);
+        
         //Boundaries
         if (this.x<0) this.x=0;
         if (this.x>this.game.width-this.width) this.x=this.game.width-this.width;
@@ -28,7 +28,7 @@ export class Player {
         if (this.y>this.game.height-this.height)this.y=this.game.height-this.height;
     }
     draw(context){
-        context.fillStyle = 'cyan'
+        
         context.fillRect(this.x, this.y, this.width, this.height);
         context.drawImage(this.image, 0, 0, this.width, this.height, 
             this.x, this.y, this.width, this.height);
