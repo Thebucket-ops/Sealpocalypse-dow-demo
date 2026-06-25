@@ -1,7 +1,7 @@
 console.log("sup mah fellas");
 import { Player } from './player.js'
 import { inputMaster } from './input.js'
-import { Enemy } from './enemy1.js';
+import { baseSeal } from './enemy1.js'
 window.addEventListener('load',function(){
     const canvas= document.getElementById('canvas1')
     const ctx = canvas.getContext('2d');
@@ -13,28 +13,57 @@ window.addEventListener('load',function(){
             this.width=width;
             this.height=height;
             this.player=new Player(this);
-            this.Enemy= new Enemy(this);
+            
             this.input= new inputMaster();
+
+            this.enemies= [];
+            this.enemyTimer=0;
+            this.enemyInterval=2000;
+            
         }
-        update(){// run animation frames and make calculations
-        this.player.update(this.input.key_up, this.input.key_down, 
+        update(deltaTime){// run animation frames and make calculations
+            this.player.update(this.input.key_up, this.input.key_down, 
             this.input.key_left, this.input.key_right, this.input.key_e,
             this.input.key_space);
-            this.Enemy.update();
+            
+
+            //Enemy handler
+            if(this.enemyTimer>this.enemyInterval){
+                this.addEnemy();
+                this.enemyTimer=0;
+            }else{
+                this.enemyTimer+=deltaTime;
+            }
+            this.enemies.forEach(enemy => {
+                enemy.update(deltaTime);
+            })
+
         }
         draw(context){//draw everything in game
             this.player.draw(context);
-            this.Enemy.draw(context);
+            this.enemies.forEach(enemy=> {enemy.draw(context)});
+        }
+        addEnemy(){//Make it so based on how much time has passed, the enemies become stronger
+            this.enemies.push(new baseSeal(this));
+            console.log(this.enemies);
         }
     }
+
     const game = new Game(canvas.width, canvas.height);
+
     console.log(game);
 
-    function animate(){
-        ctx.clearRect(0,0,canvas.width,canvas.height)
-        game.update();
+    let lastTime=0;
+    
+
+    function animate(timeStamp){
+        const deltaTime= timeStamp-lastTime;
+        
+        lastTime=timeStamp;
+        ctx.clearRect(0,0,canvas.width,canvas.height);
+        game.update(deltaTime);
         game.draw(ctx);
         requestAnimationFrame(animate);
     }
-    animate();
+    animate(0);
 });

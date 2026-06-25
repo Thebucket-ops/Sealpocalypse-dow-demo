@@ -1,29 +1,56 @@
-export class Enemy{
+class Enemy{
     constructor(game){
-        this.game=game;
-        this.width=40;
-        this.height=30;
-        this.x=0;
-        this.y=0;
-        this.image=document.getElementById('player')
+       
+        
         //Change the id up HERE when i get the model
-        this.speed=0;
-        this.vspeed=0;
-        this.basespeed=1;
-        this.acceleration=0;
-
+    
+        this.frameX=0;
+        this.frameY=0;
         this.fps=60;
         this.frameInterval=1000/this.fps;
         this.frameTimer=0;
     }
-    update(){
-        this.x+=this.basespeed
-        this.y+=this.basespeed
+    update(deltaTime){
+        
+        this.x+=this.xspeed;
+        this.y+=this.vspeed;
+
+    //     if(this.frameTimer>this.frameInterval){
+    //         this.frameTimer=0;
+    //         if(this.frameX< this.frameY) this.frameX++;  //frame timer
+    //         else this.frameX=0;
+    //     }else{
+    //         this.frameTimer+=deltaTime;
+    //     }
     }
     draw(context){
         context.fillRect(this.x, this.y, this.width, this.height);
         context.drawImage(this.image, 0, 0, this.width, this.height, 
             this.x, this.y, this.width, this.height);
+    }
+}
+
+//remember to import them
+export class baseSeal extends Enemy{
+    constructor(game){
+        super();
+        this.game=game;
+        this.width=40;
+        this.height=30;
+
+        this.x=0;
+        this.y=0;
+
+        this.xspeed=2;
+        this.vspeed=2;
+        this.basespeed=1;
+        this.acceleration=0;
+
+        this.image=document.getElementById('player')
+
+    }
+    update(deltaTime){
+        super.update(deltaTime);
     }
 }
 
