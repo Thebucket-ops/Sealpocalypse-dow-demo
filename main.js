@@ -1,7 +1,9 @@
 console.log("sup mah fellas");
+
 import { Player } from './player.js'
 import { inputMaster } from './input.js'
 import { baseSeal } from './enemy1.js'
+
 window.addEventListener('load',function(){
     const canvas= document.getElementById('canvas1')
     const ctx = canvas.getContext('2d');
