@@ -5,10 +5,12 @@ import { inputMaster } from './input.js'
 import { baseSeal } from './enemy1.js'
 
 window.addEventListener('load',function(){
+
     const canvas= document.getElementById('canvas1')
     const ctx = canvas.getContext('2d');
-    canvas.width= 500;
-    canvas.height=500;
+    canvas.width=1366;
+    canvas.height=768;
+
 
     class Game {
         constructor(width,height){
@@ -21,7 +23,8 @@ window.addEventListener('load',function(){
             this.enemies= [];
             this.enemyTimer=0;
             this.enemyInterval=2000;
-            
+
+            this.enemyCap=10;
         }
         update(deltaTime){// run animation frames and make calculations
             this.player.update(this.input.key_up, this.input.key_down, 
@@ -30,25 +33,28 @@ window.addEventListener('load',function(){
             
 
             //Enemy handler
-            if(this.enemyTimer>this.enemyInterval){
+            if(this.enemyTimer>this.enemyInterval && this.enemyCap>this.enemies.length){ 
                 this.addEnemy();
                 this.enemyTimer=0;
             }else{
-                this.enemyTimer+=deltaTime;
+                this.enemyTimer+=deltaTime; //MAKE SO THAT EVERY 5 SECONDS THE CAP INCREASES
             }
             this.enemies.forEach(enemy => {
                 enemy.update(deltaTime);
             })
 
         }
+
         draw(context){//draw everything in game
             this.player.draw(context);
             this.enemies.forEach(enemy=> {enemy.draw(context)});
         }
+
         addEnemy(){//Make it so based on how much time has passed, the enemies become stronger
             this.enemies.push(new baseSeal(this));
             console.log(this.enemies);
         }
+
     }
 
     const game = new Game(canvas.width, canvas.height);

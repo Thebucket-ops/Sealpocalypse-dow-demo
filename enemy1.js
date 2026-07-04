@@ -1,3 +1,5 @@
+import { Player } from "./player.js";
+
 class Enemy{
     constructor(game){
        
@@ -12,16 +14,17 @@ class Enemy{
     }
     update(deltaTime){
         
-        this.x+=this.xspeed;
-        this.y+=this.vspeed;
 
-    //     if(this.frameTimer>this.frameInterval){
-    //         this.frameTimer=0;
-    //         if(this.frameX< this.frameY) this.frameX++;  //frame timer
-    //         else this.frameX=0;
-    //     }else{
-    //         this.frameTimer+=deltaTime;
-    //     }
+        if(this.frameTimer>this.frameInterval){
+            this.frameTimer=0;
+            //  if(this.frameX< this.frameY) this.frameX++;  //frame timer
+            this.x+=this.xspeed;
+            this.y+=this.vspeed;
+            
+        
+        }else{
+            this.frameTimer+=deltaTime;
+        }
     }
     draw(context){
         context.fillRect(this.x, this.y, this.width, this.height);
@@ -41,16 +44,39 @@ export class baseSeal extends Enemy{
         this.x=0;
         this.y=0;
 
-        this.xspeed=2;
-        this.vspeed=2;
-        this.basespeed=1;
+
+        this.basespeed=2;
+
+
+        
+     
+
         this.acceleration=0;
 
         this.image=document.getElementById('player')
 
     }
     update(deltaTime){
+
         super.update(deltaTime);
+        
+        if (this.x<this.game.player.x){
+            this.xspeed= this.basespeed;
+        }else if(this.x == this.game.player.x){
+            this.xspeed=0;
+        }else{
+            this.xspeed= -this.basespeed;
+        }
+        
+        if (this.y<this.game.player.y){
+            this.vspeed= this.basespeed;
+        }else if(this.y == this.game.player.y){
+            this.vspeed=0;
+        }else{
+            this.vspeed= -this.basespeed;
+        }
+
+        
     }
 }
 
